@@ -1,5 +1,3 @@
-use std::fmt;
-
 extern crate primeval;
 
 fn main(){

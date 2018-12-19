@@ -1,4 +1,4 @@
-const CACHESIZE: u64 = (1 << 14) * 8; // this should be the size of the CPU L1 cache
+// const CACHESIZE: u64 = (1 << 14) * 8; // this should be the size of the CPU L1 cache
 use std::*;
 use std::iter;
 
@@ -25,29 +25,28 @@ pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
         return if limit < 2 { Box::new(iter::empty::<usize>()) } else { Box::new(iter::once(2)) }
     }
  
-    let ndxlimit = (limit - 3) / 2 + 1;
+    let indexlimit = (limit - 3) / 2 + 1;
     let buffersize = ((limit - 3) / 2) / 32 + 1;
-    let mut cmpsts = vec![0u32; buffersize];
-    let sqrtndxlimit = ((limit as f64).sqrt() as usize - 3) / 2 + 1;
+    let mut composites = vec![0u32; buffersize];
+    let sqrtindexlimit = ((limit as f64).sqrt() as usize - 3) / 2 + 1;
  
-    for ndx in 0..sqrtndxlimit {
-        if (cmpsts[ndx >> 5] & (1u32 << (ndx & 31))) == 0 {
-            let p = ndx + ndx + 3;
+    for index in 0..sqrtindexlimit {
+        if (composites[index >> 5] & (1u32 << (index & 31))) == 0 {
+            let p = index + index + 3;
             let mut cullpos = (p * p - 3) / 2;
-            while cullpos < ndxlimit {
+            while cullpos < indexlimit {
                 unsafe {
                     // avoids array bounds check, which is already done above
-	            let cptr = cmpsts.get_unchecked_mut(cullpos >> 5);
+	            let cptr = composites.get_unchecked_mut(cullpos >> 5);
 	            *cptr |= 1u32 << (cullpos & 31);
                 }
                 cullpos += p;
             }
         }
     }
- 
-    Box::new((-1 .. ndxlimit as isize).into_iter().filter_map(move |i| {
+    Box::new((-1 .. indexlimit as isize).into_iter().filter_map(move |i| {
                 if i < 0 { Some(2) } else {
-                    if cmpsts[i as usize >> 5] & (1u32 << (i & 31)) == 0 {
+                    if composites[i as usize >> 5] & (1u32 << (i & 31)) == 0 {
                         Some((i + i + 3) as usize) } else { None } }
     }))
 }
