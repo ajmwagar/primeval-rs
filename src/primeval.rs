@@ -1,9 +1,11 @@
-#![feature(test)]
-extern crate test;
+const CACHESIZE: u64 = (1 << 14) * 8; // this should be the size of the CPU L1 cache
+use std::*;
+use std::iter;
+
 
 pub fn is_prime(n: usize) -> bool {
     if n > 1 {
-        let primes = &primes_gen(n.clone());
+        let primes = &primes_gen(n.clone()).collect::<Vec<_>>();
         for &p in primes {
             let q: usize = n / p as usize;
             if q < p as usize { return true };
@@ -18,73 +20,55 @@ pub fn is_prime(n: usize) -> bool {
 }
 
 // Use Sieve_of_Eratosthenes for prime generation (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
-pub fn primes_gen(bound: usize) -> Vec<usize> {
-    let mut primes: Vec<bool> = (0..bound + 1).map(|num| num == 2 || num & 1 != 0).collect();
-    let mut num = 3usize;
-    while num * num <= bound {        
-        let mut j = num * num;
-        while j <= bound {
-            primes[j as usize] = false;
-            j += num;
+// pub fn primes_gen(bound: usize) -> Vec<usize> {
+//     use std::thread;
+//     let mut primes: Vec<bool> = (0..bound + 1).map(|num| num == 2 || num & 1 != 0).collect();
+//     let mut num = 3usize;
+//     while num * num <= bound {        
+//         let mut j = num * num;
+//         while j <= bound {
+//             primes[j as usize] = false;
+//             j += num;
+//         }
+//         num += 2;
+
+
+//     }
+
+
+
+
+//     primes.into_iter().enumerate().skip(2).filter_map(|(i, p)| if p {Some(i)} else {None}).collect::<Vec<usize>>()
+// }
+
+pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
+    if limit < 3 {
+        return if limit < 2 { Box::new(iter::empty::<usize>()) } else { Box::new(iter::once(2)) }
+    }
+ 
+    let ndxlimit = (limit - 3) / 2 + 1;
+    let buffersize = ((limit - 3) / 2) / 32 + 1;
+    let mut cmpsts = vec![0u32; buffersize];
+    let sqrtndxlimit = ((limit as f64).sqrt() as usize - 3) / 2 + 1;
+ 
+    for ndx in 0..sqrtndxlimit {
+        if (cmpsts[ndx >> 5] & (1u32 << (ndx & 31))) == 0 {
+            let p = ndx + ndx + 3;
+            let mut cullpos = (p * p - 3) / 2;
+            while cullpos < ndxlimit {
+                unsafe {
+                    // avoids array bounds check, which is already done above
+	            let cptr = cmpsts.get_unchecked_mut(cullpos >> 5);
+	            *cptr |= 1u32 << (cullpos & 31);
+                }
+                cullpos += p;
+            }
         }
-        num += 2;
     }
-    primes.into_iter().enumerate().skip(2).filter_map(|(i, p)| if p {Some(i)} else {None}).collect::<Vec<usize>>()
-}
-
-#[cfg(test)]
-mod tests {
-    use super::*;
-    use test::Bencher;
-
-    #[test]
-    fn is_10_prime(){
-        assert_eq!(false, is_prime(10 as usize));
-    }
-    #[test]
-    fn is_5_prime(){
-        assert_eq!(true, is_prime(5 as usize));
-    }
-    #[test]
-    fn is_100_prime(){
-        assert_eq!(false, is_prime(100 as usize));
-    }
-    #[test]
-    fn is_two_prime_test(){
-        assert_eq!(true, is_prime(2 as usize));
-    }
-    #[test]
-    fn is_0_prime(){
-        assert_eq!(false, is_prime(0 as usize));
-    }
-    #[test]
-    fn is_1_prime(){
-        assert_eq!(false, is_prime(1 as usize));
-    }
-    #[test]
-    fn small_primes(){
-        assert_eq!(primes_gen(20), vec![2,3,5,7,11,13,17,19]);
-    }
-
-
-    #[bench]
-    fn bench_100_primes(b: &mut Bencher){
-        b.iter(|| primes_gen(100 as usize));
-    }
-    #[bench]
-    fn bench_1000_primes(b: &mut Bencher){
-        b.iter(|| primes_gen(1000 as usize));
-    }
-    #[bench]
-    fn bench_10000_primes(b: &mut Bencher){
-        b.iter(|| primes_gen(10000 as usize));
-    }
-    #[bench]
-    fn bench_100000_primes(b: &mut Bencher){
-        b.iter(|| primes_gen(100000 as usize));
-    }
-    #[bench]
-    fn bench_1000000_primes(b: &mut Bencher){
-        b.iter(|| primes_gen(1000000 as usize));
-    }
+ 
+    Box::new((-1 .. ndxlimit as isize).into_iter().filter_map(move |i| {
+                if i < 0 { Some(2) } else {
+                    if cmpsts[i as usize >> 5] & (1u32 << (i & 31)) == 0 {
+                        Some((i + i + 3) as usize) } else { None } }
+    }))
 }

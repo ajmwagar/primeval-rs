@@ -1,3 +1,4 @@
+use std::fmt;
 
 extern crate primeval;
 
@@ -14,7 +15,7 @@ fn main(){
         let sub_slice: &str = &sub[..];
 
         match sub_slice {
-            "gen" => println!("{:?}",  primeval::primes_gen(args[2].parse::<usize>().unwrap().clone())),
+            "gen" => println!("{:?}",  primeval::primes_gen(args[2].parse::<usize>().unwrap().clone()).collect::<Vec<_>>()),
             "prime"=> println!("{}", primeval::is_prime(args[2].parse::<usize>().unwrap().clone())),
             "version" => println!("{}", version),
             "help" => println!("{}", help),
