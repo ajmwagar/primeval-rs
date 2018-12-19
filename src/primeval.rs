@@ -20,27 +20,6 @@ pub fn is_prime(n: usize) -> bool {
 }
 
 // Use Sieve_of_Eratosthenes for prime generation (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
-// pub fn primes_gen(bound: usize) -> Vec<usize> {
-//     use std::thread;
-//     let mut primes: Vec<bool> = (0..bound + 1).map(|num| num == 2 || num & 1 != 0).collect();
-//     let mut num = 3usize;
-//     while num * num <= bound {        
-//         let mut j = num * num;
-//         while j <= bound {
-//             primes[j as usize] = false;
-//             j += num;
-//         }
-//         num += 2;
-
-
-//     }
-
-
-
-
-//     primes.into_iter().enumerate().skip(2).filter_map(|(i, p)| if p {Some(i)} else {None}).collect::<Vec<usize>>()
-// }
-
 pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
     if limit < 3 {
         return if limit < 2 { Box::new(iter::empty::<usize>()) } else { Box::new(iter::once(2)) }
