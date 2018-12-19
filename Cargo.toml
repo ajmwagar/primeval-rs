@@ -1,7 +1,10 @@
 [package]
 name = "primeval"
-version = "0.0.2"
+description = "A monstrosity of a prime number generator"
+repository = "https://github.com/ajmwagar/primeval-rs"
+version = "0.0.3"
 authors = ["Avery Wagar <ajmw.subs@gmail.com>"]
+license = "MIT"
 
 [lib]
 name = "primeval"
