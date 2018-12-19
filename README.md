@@ -28,7 +28,7 @@ fn main(){
   let result = primeval::is_prime(&2 as usize);
   
   // Generation, in this case all the primes from 0 - 1000
-  let result: Vec<usize> = primeval::primes_gen(&1000 as usize);
+  let result: Vec<usize> = primeval::primes_gen(&1000 as usize).collect::<Vec<_>>();
 }
 ```
 
