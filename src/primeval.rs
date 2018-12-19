@@ -1,8 +1,9 @@
 #![feature(test)]
 extern crate test;
 
-pub fn is_prime(n: usize, primes: &Vec<usize>) -> bool {
+pub fn is_prime(n: usize) -> bool {
     if n > 1 {
+        let primes = &primes_gen(n.clone());
         for &p in primes {
             let q: usize = n / p as usize;
             if q < p as usize { return true };
@@ -38,27 +39,27 @@ mod tests {
 
     #[test]
     fn is_10_prime(){
-        assert_eq!(false, is_prime(10 as usize, &primes_gen(10 as usize)));
+        assert_eq!(false, is_prime(10 as usize));
     }
     #[test]
     fn is_5_prime(){
-        assert_eq!(true, is_prime(5 as usize, &primes_gen(5 as usize)));
+        assert_eq!(true, is_prime(5 as usize));
     }
     #[test]
     fn is_100_prime(){
-        assert_eq!(false, is_prime(100 as usize, &primes_gen(100 as usize)));
+        assert_eq!(false, is_prime(100 as usize));
     }
     #[test]
     fn is_two_prime_test(){
-        assert_eq!(true, is_prime(2 as usize, &primes_gen(2 as usize)));
+        assert_eq!(true, is_prime(2 as usize));
     }
     #[test]
     fn is_0_prime(){
-        assert_eq!(false, is_prime(0 as usize, &primes_gen(0 as usize)));
+        assert_eq!(false, is_prime(0 as usize));
     }
     #[test]
     fn is_1_prime(){
-        assert_eq!(false, is_prime(1 as usize, &primes_gen(1 as usize)));
+        assert_eq!(false, is_prime(1 as usize));
     }
 
 

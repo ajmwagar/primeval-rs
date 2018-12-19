@@ -15,7 +15,7 @@ fn main(){
 
         match sub_slice {
             "gen" => println!("{:?}",  primeval::primes_gen(args[2].parse::<usize>().unwrap().clone())),
-            "prime"=> println!("{}", primeval::is_prime(args[2].parse::<usize>().unwrap().clone(), &primeval::primes_gen(args[2].parse::<usize>().unwrap().clone()))),
+            "prime"=> println!("{}", primeval::is_prime(args[2].parse::<usize>().unwrap().clone())),
             "version" => println!("{}", version),
             "help" => println!("{}", help),
             _ => println!("Incorrect command. Try primeval help.")
