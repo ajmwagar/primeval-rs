@@ -2,7 +2,7 @@
 name = "primeval"
 description = "A monstrosity of a prime number generator"
 repository = "https://github.com/ajmwagar/primeval-rs"
-version = "0.2.1"
+version = "0.2.2"
 authors = ["Avery Wagar <ajmw.subs@gmail.com>"]
 keywords = ["primes", "number-theroy", "math", "mathematics"]
 readme = "README.md"
