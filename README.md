@@ -9,10 +9,10 @@ A monstrosity of a prime number generator.
 
 ### CLI
 
-`primeval help`: displays a help menu.
-`primeval gen <limit>`: generates all the prime numbers up to a limit
-`primeval prime <number>`: determines whether a number is prime or not
-`primeval version`: shows version info
+- `primeval help`: displays a help menu.
+- `primeval gen <limit>`: generates all the prime numbers up to a limit
+- `primeval prime <number>`: determines whether a number is prime or not
+- `primeval version`: shows version info
 
 ### Rust Crate
 *main.rs*

@@ -61,6 +61,10 @@ mod tests {
     fn is_1_prime(){
         assert_eq!(false, is_prime(1 as usize));
     }
+    #[test]
+    fn small_primes(){
+        assert_eq!(primes_gen(20), vec![2,3,5,7,11,13,17,19]);
+    }
 
 
     #[bench]
