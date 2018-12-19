@@ -1,7 +1,9 @@
 # primeval-rs
-A monstrosity of a prime number generator.
+A monstrosity of a prime number generator. (It's dead simple)
 
 ## Features
+
+- ZERO Dependencies (will always be this way)
 - CLI Interface
 - Rust library (see [crates.io](https://crates.io/crates/primeval))
 
@@ -15,10 +17,12 @@ A monstrosity of a prime number generator.
 - `primeval version`: shows version info
 
 ### Rust Crate
+
 *main.rs*
 ```rust
 extern crate primeval;
 
+// We use usize to make sure nothing breaks when cross compiling.
 fn main(){
   // Primality?
   let result = primeval::is_prime(&2 as usize);
@@ -28,7 +32,7 @@ fn main(){
 }
 ```
 
-## Installation
+## Installation (CLI)
 
 1. `git clone https://github.com/ajmwagar/primeval-rs`
 2. `cd primeval-rs`
