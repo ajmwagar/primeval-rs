@@ -3,4 +3,12 @@ name = "primeval"
 version = "0.0.2"
 authors = ["Avery Wagar <ajmw.subs@gmail.com>"]
 
+[lib]
+name = "primeval"
+path = "src/primeval.rs"
+
+[[bin]]
+name = "primeval"
+path = "src/bin.rs"
+
 [dependencies]
