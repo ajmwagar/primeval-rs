@@ -1,4 +1,6 @@
 # primeval-rs
+[![Build Status](https://travis-ci.org/ajmwagar/primeval-rs.svg?branch=master)](https://travis-ci.org/ajmwagar/primeval-rs)
+
 A monstrosity of a prime number generator. (It's dead simple)
 
 ## Features
