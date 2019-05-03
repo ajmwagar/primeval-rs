@@ -55,7 +55,7 @@ You can also move the binary into `/usr/bin` or somewhere else in your `PATH` to
 ## Roadmap
 
 - [x] Rust Module/API
-- [ ] Cleaner UI/CLI
+- [x] Cleaner UI/CLI
 - [ ] More SPEED!
 - [ ] Factorization
 - [ ] Larger number support
