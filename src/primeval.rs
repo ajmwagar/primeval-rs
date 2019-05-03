@@ -95,6 +95,8 @@ pub fn is_prime(n: usize) -> bool {
 /// Generate primes up to a given limit using the Seive of Eratorthenes
 /// Use Sieve_of_Eratosthenes for prime generation (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
 pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
+    if limit >= 10 {
+
 
     // Automatically return the small primes
     if limit < 3 {
@@ -139,4 +141,8 @@ pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
             }
         }
     }))
+    }
+    else {
+        return Box::new(vec![2,3,5,7].into_iter().filter(move |x| x <= &limit));
+    }
 }
