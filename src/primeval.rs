@@ -23,7 +23,6 @@
 //!```rust
 //!extern crate primeval;
 //!
-//!// We use usize to make sure nothing breaks when cross compiling.
 //!fn main(){
 //!  // Primality?
 //!  let result = primeval::is_prime(2);
@@ -63,7 +62,6 @@
 use std::*;
 use std::iter;
 
-
 /// Returns whether a given number is prime
 pub fn is_prime(n: usize) -> bool {
     if n > 1 {
@@ -94,7 +92,7 @@ pub fn is_prime(n: usize) -> bool {
 
 /// Generate primes up to a given limit using the Seive of Eratorthenes
 /// Use Sieve_of_Eratosthenes for prime generation (https://en.wikipedia.org/wiki/Sieve_of_Eratosthenes)
-pub fn primes_gen(limit: usize) -> Box<Iterator<Item = usize>> {
+pub fn primes_gen(limit: usize) -> Box<dyn Iterator<Item = usize>> {
     if limit >= 10 {
 
 

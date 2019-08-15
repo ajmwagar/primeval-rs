@@ -8,6 +8,7 @@ A monstrosity of a prime number generator. (It's dead simple)
 - ZERO Dependencies (will always be this way)
 - CLI Interface
 - Rust library (see [crates.io](https://crates.io/crates/primeval))
+- Tiny <150 lines of Rust code
 
 ## Usage
 
@@ -24,13 +25,12 @@ A monstrosity of a prime number generator. (It's dead simple)
 ```rust
 extern crate primeval;
 
-// We use usize to make sure nothing breaks when cross compiling.
 fn main(){
   // Primality?
-  let result = primeval::is_prime(&2 as usize);
+  let result = primeval::is_prime(2);
   
   // Generation, in this case all the primes from 0 - 1000
-  let result: Vec<usize> = primeval::primes_gen(&1000 as usize).collect::<Vec<_>>();
+  let result: Vec<usize> = primeval::primes_gen(1000).collect::<Vec<_>>();
 }
 ```
 
