@@ -2,4 +2,4 @@
 # It is not intended for manual editing.
 [[package]]
 name = "primeval"
-version = "0.2.4"
+version = "1.0.0"
