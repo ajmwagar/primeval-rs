@@ -1,4 +1,5 @@
 # primeval-rs
+[![Crates.io](https://img.shields.io/crates/v/primeval.svg)](https://crates.io/primeval)
 [![Build Status](https://travis-ci.org/ajmwagar/primeval-rs.svg?branch=master)](https://travis-ci.org/ajmwagar/primeval-rs)
 
 A monstrosity of a prime number generator. (It's dead simple)
